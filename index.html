@@ -1,0 +1,146 @@
+<!--
+CandyCrush
+Your Name: Geo Gonzalez
+Collaborators: None.
+-->
+<!DOCTYPE html>
+<html>
+  <!--
+/* Copyright (c) 2017 MIT 6.813/6.831 course staff, all rights reserved.
+ * Redistribution of original or derived work requires permission of course staff.
+ */
+-->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>CandyCrush</title>
+
+    <!-- Load style sheets -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css"
+    />
+
+    <link rel="stylesheet" href="mainLayout.css" />
+
+    <!-- Use mobile-aware viewport -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Load any supplemental Javascript libraries here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.2/seedrandom.js"></script>
+    <script src="candy.js"></script>
+    <script src="board.js"></script>
+    <script src="rules.js"></script>
+
+    <script>
+      // By default, the first board loaded by your page will be the same
+      // each time you load (which is accomplished by "seeding" the random
+      // number generator. This makes testing (and grading!) easier!
+      Math.seedrandom(0);
+
+      // A short jQuery extension to read query parameters from the URL.
+      $.extend({
+        getUrlVars: function () {
+          var vars = [],
+            pair;
+          var pairs = window.location.search.substr(1).split("&");
+          for (var i = 0; i < pairs.length; i++) {
+            pair = pairs[i].split("=");
+            vars.push(pair[0]);
+            vars[pair[0]] =
+              pair[1] && decodeURIComponent(pair[1].replace(/\+/g, " "));
+          }
+          return vars;
+        },
+        getUrlVar: function (name) {
+          return $.getUrlVars()[name];
+        },
+      });
+
+      // constants
+      var DEFAULT_BOARD_SIZE = 8;
+
+      // data model at global scope for easier debugging
+      var board;
+      var rules;
+
+      // initialize board
+      if ($.getUrlVar("size") && $.getUrlVar("size") >= 3) {
+        board = new Board($.getUrlVar("size"));
+      } else {
+        board = new Board(DEFAULT_BOARD_SIZE);
+      }
+
+      // load a rule
+      rules = new Rules(board);
+
+      // Final initialization entry point: the Javascript code inside this block
+      // runs at the end of start-up when the page has finished loading.
+      $(document).ready(function () {
+        // TODO: Your code here.
+      });
+
+      /* Event Handlers */
+      // access the candy object with info.candy
+
+      // add a candy to the board
+      $(board).on("add", function (e, info) {
+        // TODO: Your code here.
+      });
+
+      // move a candy on the board
+      $(board).on("move", function (e, info) {
+        // TODO: Your code here.
+      });
+
+      // remove a candy from the board
+      $(board).on("remove", function (e, info) {
+        // TODO: Your code here.
+      });
+
+      // move a candy on the board
+      $(board).on("scoreUpdate", function (e, info) {
+        // TODO: Your code here. To be implemented in pset 2.
+      });
+
+      // Button Events
+      $(document).on("click", "#buttonIDhere", function (evt) {
+        // TODO: Your code here.
+      });
+
+      // keyboard events arrive here
+      $(document).on("keydown", function (evt) {
+        // TODO: Your code here.
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4" id="firstColumn">
+          <div>
+            <!-- Column 1 Code Here -->
+            Column 1
+          </div>
+        </div>
+
+        <div class="col-md-4" id="mainColumn">
+          <!-- Column 2 Code Here -->
+          Column 2
+        </div>
+
+        <div class="col-md-4" id="lastColumn">
+          <!-- Column 3 Code Here -->
+          Column 3
+        </div>
+      </div>
+      <!-- class="row" -->
+    </div>
+    <!-- class="container" -->
+  </body>
+</html>
