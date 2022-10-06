@@ -1,11 +1,25 @@
 /* Copyright (c) 2017 MIT 6.813/6.831 course staff, all rights reserved.
  * Redistribution of original or derived work requires permission of course staff.
  */
-
-/* REMOVE ME - dashed lines and height for debugging */
-#mainColumn {
-  outline: 1px dashed orange;
-  height: 200px;
+@font-face {
+  font-family: "CandyShop";
+  src: url("/resources/fonts/CandyShopPersonalUse-O7ZO.ttf");
 }
 
-/* Your css code here! */
+#title {
+  color: red;
+  font-size: 7vw;
+  background-color: #adff2f6e;
+  font-family: "CandyShop";
+  /* font-weight: bold; */
+}
+
+/*DEBUGGING: shows where there are divs*/
+#mainColumn {
+  outline: 2px solid green;
+  /* padding: 0px 10px 0px 10px; */
+  background-color: #c1ff8047;
+}
+div {
+  background-color: #00ffff38;
+}
