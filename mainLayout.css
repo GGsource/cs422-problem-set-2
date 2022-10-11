@@ -8,18 +8,40 @@
 
 #title {
   color: red;
-  font-size: 7vw;
-  background-color: #adff2f6e;
+  font-size: 6vw;
   font-family: "CandyShop";
-  /* font-weight: bold; */
+}
+table {
+  /*Note to self: I was really struggling to get the table to actually use the given size
+  or to remove the spacing when I told it to. The problem ended up being that I gave my
+  table the table class when I created it, thus bootstrap's css was forced onto it and
+  I couldn't undo it. So I removed the class and just made this apply to tables as a whole*/
+  width: 320px;
+  height: 320px;
+  text-align: center;
+}
+td {
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
 }
 
-/*DEBUGGING: shows where there are divs*/
+/*DEBUGGING: shows bounding boxes of each piece*/
 #mainColumn {
-  outline: 2px solid green;
-  /* padding: 0px 10px 0px 10px; */
-  background-color: #c1ff8047;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #00000000,
+    #00000000 10px,
+    #4652985a 10px,
+    #4652985a 40px
+  );
 }
 div {
-  background-color: #00ffff38;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #00000000,
+    #00000000 5px,
+    #98468226 5px,
+    #98468a24 10px
+  );
 }
