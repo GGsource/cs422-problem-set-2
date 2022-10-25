@@ -113,6 +113,14 @@ Collaborators: None.
         // TODO: Your code here.
       });
 
+      // DONE: Behavior for new game button
+      $(document).on("click", "#newGameButton", function (evt) {
+        board.clear();
+        rules.populateBoard();
+        refreshGuiBoard(board);
+        console.log("new game prepared");
+      });
+
       // keyboard events arrive here
       $(document).on("keydown", function (evt) {
         // TODO: Your code here.

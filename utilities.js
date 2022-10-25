@@ -1,12 +1,3 @@
-// DONE: Behavior for new game button
-let newGameButton = document.getElementById("newGameButton");
-newGameButton.onclick = function () {
-	board.clear();
-	rules.populateBoard();
-	refreshGuiBoard(board);
-	console.log("new game prepared");
-};
-
 // Creates the initial table of square candies
 function createGuiBoard() {
 let gameTable = document.getElementById("gameTable");
