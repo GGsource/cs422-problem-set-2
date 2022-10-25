@@ -91,10 +91,16 @@ Collaborators: None.
           document.getElementById("moveDown"),
         ];
         moveButtons.forEach((btn) => (btn.disabled = true)); //They should start off disabled
-        document.getElementById("moveInput").onkeyup = function () {
-          // console.log("Key was pressed in moveinput!");
+
+        $("#moveInput").keyup(function () {
           checkValidDirections();
-        };
+        });
+        $("#moveUp, #moveLeft, #moveRight, #moveDown").click(function (e) {
+          console.log($(this).text().trim() + " was pressed");
+          if ($(this).text().trim() == "↑")
+            //Can tell which button's text was pressed
+            console.log("Up arrow was pressed!"); //Can get direction based on button text
+        });
       });
 
       /* Event Handlers */
@@ -132,12 +138,6 @@ Collaborators: None.
         refreshGuiBoard(board);
         // console.log("new game prepared");
       });
-
-      // // keyboard events arrive here
-      // $(document).on("keydown", function (evt) {
-      //   // TODO: Your code here.
-      //   console.log("key was pressed: " + evt.key);
-      // });
     </script>
   </head>
 
