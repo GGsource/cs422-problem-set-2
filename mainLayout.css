@@ -26,9 +26,6 @@ td {
   border: 1px solid white;
 }
 
-.rightRow {
-}
-
 /*DEBUGGING: shows bounding boxes of each piece*/
 #mainColumn {
   background-image: repeating-linear-gradient(

@@ -143,29 +143,49 @@ Collaborators: None.
         </div>
 
         <div class="col-md-3" id="lastColumn" align="center">
-          <!-- Column 3 Code Here -->
+          <!-- Move Label -->
           <div class="row rightRow">
             <div class="col-md" id="inputColumn" align="center">
               <label for="moveField">Move:</label>
               <input type="text" name="moveField" />
             </div>
           </div>
+          <!-- Top Row -->
           <div class="row rightRow" id="upBtnRow">
-            <div class="col-md" id="leftBtnColumn" align="center"></div>
-            <div class="col-md" id="leftBtnColumn" align="center">
-              <button type="button" class="btn btn-success">↑</button>
+            <!-- Top Left Column -->
+            <div class="col-md btnColumn" align="center"></div>
+            <!-- Top Center Column -->
+            <div class="col-md btnColumn" align="center">
+              <button type="button" class="btn btn-danger">↑</button>
             </div>
-            <div class="col-md" id="leftBtnColumn" align="center"></div>
+            <!-- Top Right Column -->
+            <div class="col-md btnColumn" align="center"></div>
           </div>
-          <div class="row rightRow">
-            <div class="col-md" id="leftBtnColumn" align="center">
-              <button type="button" class="btn btn-success">←</button>
+          <!-- Center Row -->
+          <div class="row rightRow" id="horizontalBtnRow">
+            <!-- Center Left Column -->
+            <div class="col-md btnColumn" align="center">
+              <button type="button" class="btn btn-danger">←</button>
             </div>
-            <div class="col-md" id="rightBtnColumn" align="center">
-              <button type="button" class="btn btn-success">→</button>
+            <!-- Center Center Column -->
+            <div class="col-md btnColumn" align="center"></div>
+            <!-- Center Right Column -->
+            <div class="col-md btnColumn" align="center">
+              <button type="button" class="btn btn-danger">→</button>
             </div>
           </div>
-          <button type="button" class="btn btn-success">↓</button>
+          <!-- Bottom Row -->
+          <div class="row rightRow" id="downBtnRow">
+            <!-- Bottom Left Column -->
+            <div class="col-md btnColumn" align="center"></div>
+            <!-- Bottom Center Column -->
+            <div class="col-md" align="center">
+              <button type="button" class="btn btn-danger">↓</button>
+            </div>
+            <!-- Bottom Right Column -->
+            <div class="col-md btnColumn" align="center"></div>
+          </div>
+          <button type="button" class="btn btn-info">Crush Once</button>
         </div>
       </div>
       <!-- class="row" -->
