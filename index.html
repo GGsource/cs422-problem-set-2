@@ -134,10 +134,18 @@ Collaborators: None.
         "#moveUp, #moveLeft, #moveRight, #moveDown",
         function () {
           console.log($(this).text().trim() + " was pressed");
-          if ($(this).text().trim() == "↑")
-            //Can tell which button's text was pressed
-            console.log("Up arrow was pressed!"); //Can get direction based on button text
-          // TODO: Now that you know up was pressed, call move this piece up
+          if ($(this).text().trim() == "↑") {
+            // calls flip on up arrow
+            destX = inputX;
+            destY = inputY - 1;
+            console.log(
+              "Attempting to move candy at (" + inputX,
+              ", " + inputY + ") to (" + destX + ", " + destY + ")"
+            );
+            destCandy = board.getCandyAt(destY, destX);
+            board.flipCandies(candyInput, destCandy);
+          }
+          // else for other 3 directions
         }
       );
 
