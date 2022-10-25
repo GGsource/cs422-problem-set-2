@@ -91,16 +91,6 @@ Collaborators: None.
           document.getElementById("moveDown"),
         ];
         moveButtons.forEach((btn) => (btn.disabled = true)); //They should start off disabled
-
-        $("#moveInput").keyup(function () {
-          checkValidDirections();
-        });
-        $("#moveUp, #moveLeft, #moveRight, #moveDown").click(function (e) {
-          console.log($(this).text().trim() + " was pressed");
-          if ($(this).text().trim() == "↑")
-            //Can tell which button's text was pressed
-            console.log("Up arrow was pressed!"); //Can get direction based on button text
-        });
       });
 
       /* Event Handlers */
@@ -109,26 +99,25 @@ Collaborators: None.
       // add a candy to the board
       $(board).on("add", function (e, info) {
         // TODO: Your code here.
+        console.log("add event triggered but not yet implemented 😔");
       });
 
       // move a candy on the board
       $(board).on("move", function (e, info) {
         // TODO: Your code here.
+        console.log("move event triggered but not yet implemented 😔");
       });
 
       // remove a candy from the board
       $(board).on("remove", function (e, info) {
         // TODO: Your code here.
+        console.log("remove event triggered but not yet implemented 😔");
       });
 
       // move a candy on the board
       $(board).on("scoreUpdate", function (e, info) {
         // TODO: Your code here. To be implemented in pset 2.
-      });
-
-      // Button Events
-      $(document).on("click", "#buttonIDhere", function (evt) {
-        // TODO: Your code here.
+        console.log("scoreUpdate even triggered but not yet implemented 😔");
       });
 
       // DONE: Behavior for new game button
@@ -137,6 +126,24 @@ Collaborators: None.
         rules.populateBoard();
         refreshGuiBoard(board);
         // console.log("new game prepared");
+      });
+
+      // Whenever an arrow button is pressed it checks which one was pressed and moves accordingly
+      $(document).on(
+        "click",
+        "#moveUp, #moveLeft, #moveRight, #moveDown",
+        function () {
+          console.log($(this).text().trim() + " was pressed");
+          if ($(this).text().trim() == "↑")
+            //Can tell which button's text was pressed
+            console.log("Up arrow was pressed!"); //Can get direction based on button text
+          // TODO: Now that you know up was pressed, call move this piece up
+        }
+      );
+
+      //Checks for valid input every time user types something into input field
+      $(document).on("keyup", "#moveInput", function () {
+        checkValidDirections();
       });
     </script>
   </head>
