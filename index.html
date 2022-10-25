@@ -35,6 +35,7 @@ Collaborators: None.
     <script src="candy.js"></script>
     <script src="board.js"></script>
     <script src="rules.js"></script>
+    <script src="utilities.js"></script>
     <script>
       // By default, the first board loaded by your page will be the same
       // each time you load (which is accomplished by "seeding" the random
@@ -81,29 +82,7 @@ Collaborators: None.
       // runs at the end of start-up when the page has finished loading.
       $(document).ready(function () {
         rules.prepareNewGame();
-
-        let gameTable = document.getElementById("gameTable");
-        for (let i = 0; i < DEFAULT_BOARD_SIZE; i++) {
-          var newRow = gameTable.insertRow(i);
-          for (let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
-            //Insert the new cell
-            var newCell = newRow.insertCell(j);
-            newCell.classList.add("cell");
-            //Name it
-            newCell.innerHTML = `${(j + 10).toString(36)}${i + 1}`;
-            // Get the piece's color here
-            let candyColor = board.getCandyAt(i, j).color;
-            if (candyColor != null) {
-              newCell.style.background = candyColor;
-              if (candyColor == "yellow") {
-                //Yellow buttons need darker text
-                newCell.style.color = "grey";
-              } else {
-                newCell.style.color = "white";
-              }
-            }
-          }
-        }
+        createGuiBoard(board);
       });
 
       /* Event Handlers */
@@ -146,7 +125,9 @@ Collaborators: None.
       <div class="row">
         <div class="col-md-3" id="firstColumn" align="center">
           <div id="title">Candy<br />Crush</div>
-          <button type="button" class="btn btn-info">New Game</button>
+          <button id="newGameButton" type="button" class="btn btn-info">
+            New Game
+          </button>
         </div>
 
         <div class="col-md-6" id="mainColumn" align="center">
