@@ -83,6 +83,18 @@ Collaborators: None.
       $(document).ready(function () {
         rules.prepareNewGame();
         createGuiBoard(board);
+
+        moveButtons = [
+          document.getElementById("moveUp"),
+          document.getElementById("moveLeft"),
+          document.getElementById("moveRight"),
+          document.getElementById("moveDown"),
+        ];
+        moveButtons.forEach((btn) => (btn.disabled = true)); //They should start off disabled
+        document.getElementById("moveInput").onkeyup = function () {
+          // console.log("Key was pressed in moveinput!");
+          checkValidDirections();
+        };
       });
 
       /* Event Handlers */
@@ -118,13 +130,14 @@ Collaborators: None.
         board.clear();
         rules.populateBoard();
         refreshGuiBoard(board);
-        console.log("new game prepared");
+        // console.log("new game prepared");
       });
 
-      // keyboard events arrive here
-      $(document).on("keydown", function (evt) {
-        // TODO: Your code here.
-      });
+      // // keyboard events arrive here
+      // $(document).on("keydown", function (evt) {
+      //   // TODO: Your code here.
+      //   console.log("key was pressed: " + evt.key);
+      // });
     </script>
   </head>
 
@@ -147,7 +160,7 @@ Collaborators: None.
           <div class="row rightRow">
             <div class="col-md" id="inputColumn" align="center">
               <label for="moveField">Move:</label>
-              <input type="text" name="moveField" />
+              <input type="text" name="moveField" id="moveInput" />
             </div>
           </div>
           <!-- Top Row -->
@@ -156,7 +169,9 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
             <!-- Top Center Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger">↑</button>
+              <button type="button" class="btn btn-danger" id="moveUp">
+                ↑
+              </button>
             </div>
             <!-- Top Right Column -->
             <div class="col-md btnColumn" align="center"></div>
@@ -165,13 +180,17 @@ Collaborators: None.
           <div class="row rightRow" id="horizontalBtnRow">
             <!-- Center Left Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger">←</button>
+              <button type="button" class="btn btn-danger" id="moveLeft">
+                ←
+              </button>
             </div>
             <!-- Center Center Column -->
             <div class="col-md btnColumn" align="center"></div>
             <!-- Center Right Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger">→</button>
+              <button type="button" class="btn btn-danger" id="moveRight">
+                →
+              </button>
             </div>
           </div>
           <!-- Bottom Row -->
@@ -180,7 +199,9 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
             <!-- Bottom Center Column -->
             <div class="col-md" align="center">
-              <button type="button" class="btn btn-danger">↓</button>
+              <button type="button" class="btn btn-danger" id="moveDown">
+                ↓
+              </button>
             </div>
             <!-- Bottom Right Column -->
             <div class="col-md btnColumn" align="center"></div>
