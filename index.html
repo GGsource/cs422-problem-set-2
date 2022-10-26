@@ -90,7 +90,7 @@ Collaborators: None.
           document.getElementById("moveRight"),
           document.getElementById("moveDown"),
         ];
-        moveButtons.forEach((btn) => (btn.disabled = true)); //They should start off disabled
+        // moveButtons.forEach((btn) => (btn.disabled = true)); //They should start off disabled
       });
 
       /* Event Handlers */
@@ -104,8 +104,9 @@ Collaborators: None.
 
       // move a candy on the board
       $(board).on("move", function (e, info) {
-        // TODO: Your code here.
-        console.log("move event triggered but not yet implemented 😔");
+        // TESTME: Seems to work.
+        console.log("move event triggered");
+        refreshGuiBoard();
       });
 
       // remove a candy from the board
@@ -124,7 +125,7 @@ Collaborators: None.
       $(document).on("click", "#newGameButton", function (evt) {
         board.clear();
         rules.populateBoard();
-        refreshGuiBoard(board);
+        refreshGuiBoard();
         // console.log("new game prepared");
       });
 
@@ -133,18 +134,24 @@ Collaborators: None.
         "click",
         "#moveUp, #moveLeft, #moveRight, #moveDown",
         function () {
-          console.log($(this).text().trim() + " was pressed");
-          if ($(this).text().trim() == "↑") {
-            // calls flip on up arrow
-            destX = inputX;
-            destY = inputY - 1;
-            console.log(
-              "Attempting to move candy at (" + inputX,
-              ", " + inputY + ") to (" + destX + ", " + destY + ")"
-            );
-            destCandy = board.getCandyAt(destY, destX);
-            board.flipCandies(candyInput, destCandy);
+          let pressedBtnText = $(this).text().trim();
+          console.log(pressedBtnText + " was pressed");
+          let destCandy;
+          switch (pressedBtnText) {
+            case "↑":
+              destCandy = board.getCandyInDirection(candyInput, "up");
+              break;
+            case "←":
+              destCandy = board.getCandyInDirection(candyInput, "left");
+              break;
+            case "→":
+              destCandy = board.getCandyInDirection(candyInput, "right");
+              break;
+            case "↓":
+              destCandy = board.getCandyInDirection(candyInput, "down");
+              break;
           }
+          board.flipCandies(candyInput, destCandy);
           // else for other 3 directions
         }
       );
@@ -184,7 +191,12 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
             <!-- Top Center Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger" id="moveUp">
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="moveUp"
+                disabled="disabled"
+              >
                 ↑
               </button>
             </div>
@@ -195,7 +207,12 @@ Collaborators: None.
           <div class="row rightRow" id="horizontalBtnRow">
             <!-- Center Left Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger" id="moveLeft">
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="moveLeft"
+                disabled="disabled"
+              >
                 ←
               </button>
             </div>
@@ -203,7 +220,12 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
             <!-- Center Right Column -->
             <div class="col-md btnColumn" align="center">
-              <button type="button" class="btn btn-danger" id="moveRight">
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="moveRight"
+                disabled="disabled"
+              >
                 →
               </button>
             </div>
@@ -214,14 +236,21 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
             <!-- Bottom Center Column -->
             <div class="col-md" align="center">
-              <button type="button" class="btn btn-danger" id="moveDown">
+              <button
+                type="button"
+                class="btn btn-danger"
+                id="moveDown"
+                disabled="disabled"
+              >
                 ↓
               </button>
             </div>
             <!-- Bottom Right Column -->
             <div class="col-md btnColumn" align="center"></div>
           </div>
-          <button type="button" class="btn btn-info">Crush Once</button>
+          <button type="button" class="btn btn-info" disabled="disabled">
+            Crush Once
+          </button>
         </div>
       </div>
       <!-- class="row" -->
