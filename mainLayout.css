@@ -26,6 +26,11 @@ td {
   border: 1px solid white;
 }
 
+.btn:disabled {
+  background-color: grey;
+  border-color: darkgrey;
+}
+
 /*DEBUGGING: shows bounding boxes of each piece*/
 #mainColumn {
   background-image: repeating-linear-gradient(
