@@ -98,8 +98,9 @@ Collaborators: None.
 
       // add a candy to the board
       $(board).on("add", function (e, info) {
-        // TODO: Your code here.
-        console.log("add event triggered but not yet implemented 😔");
+        // TESTME: Not sure what functionality is needed here
+        console.log("add event triggered");
+        // refreshGuiBoard();
       });
 
       // move a candy on the board
@@ -123,13 +124,32 @@ Collaborators: None.
 
       // DONE: Behavior for new game button
       $(document).on("click", "#newGameButton", function (evt) {
+        // FIXME: The new board is NOT valid, it contains crushes upon creation.
         board.clear();
-        rules.populateBoard();
+        rules.prepareNewGame();
         refreshGuiBoard();
         // console.log("new game prepared");
       });
 
-      // Whenever an arrow button is pressed it checks which one was pressed and moves accordingly
+      // DONE: When crush button is pressed crush
+      $(document).on("click", "#crushBtn", async function () {
+        toDestroy = rules.getCandyCrushes();
+        rules.removeCrushes(toDestroy);
+        console.log(
+          "Successfully crushed with " + toDestroy.length + " crushes"
+        );
+        refreshGuiBoard();
+        await delay(1000); //FIXME: Should disable crush button during this wait!
+        rules.moveCandiesDown();
+        refreshGuiBoard();
+        // Now that we've crushed once, check if there are more crushes needed, if not then disable crushing
+        if (rules.getCandyCrushes().length <= 0) {
+          toggleInputAndCrushing();
+          //TODO: Once returned to inputting, should clear field and put cursor there
+        }
+      });
+
+      // DONE: Whenever an arrow button is pressed it checks which one was pressed and moves accordingly
       $(document).on(
         "click",
         "#moveUp, #moveLeft, #moveRight, #moveDown",
@@ -152,11 +172,12 @@ Collaborators: None.
               break;
           }
           board.flipCandies(candyInput, destCandy);
-          // else for other 3 directions
+          //Now that the candies have been flipped, we don't want the user to move anything else or enter any new location until they crush the existing candies
+          toggleInputAndCrushing();
         }
       );
 
-      //Checks for valid input every time user types something into input field
+      // DONE: Checks for valid input every time user types something into input field
       $(document).on("keyup", "#moveInput", function () {
         checkValidDirections();
       });
@@ -248,7 +269,12 @@ Collaborators: None.
             <!-- Bottom Right Column -->
             <div class="col-md btnColumn" align="center"></div>
           </div>
-          <button type="button" class="btn btn-info" disabled="disabled">
+          <button
+            type="button"
+            class="btn btn-info"
+            id="crushBtn"
+            disabled="disabled"
+          >
             Crush Once
           </button>
         </div>

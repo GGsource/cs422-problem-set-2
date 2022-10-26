@@ -31,15 +31,19 @@ function refreshGuiBoard() {
     for (let j = 0; j < gameTable.rows[i].cells.length; j++) {
       let cell = gameTable.rows[i].cells[j];
       // Get the piece's color here
-      let candyColor = board.getCandyAt(i, j).color;
-      if (candyColor != null) {
-        cell.style.background = candyColor;
-        if (candyColor == "yellow") {
-          //Yellow buttons need darker text
-          cell.style.color = "grey";
-        } else {
-          cell.style.color = "white";
-        }
+      let candy = board.getCandyAt(i, j);
+      let candyColor;
+      if (candy != null) {
+        candyColor = candy.color;
+      } else {
+        candyColor = "#00000036";
+      }
+      cell.style.background = candyColor;
+      if (candyColor == "yellow") {
+        //Yellow buttons need darker text
+        cell.style.color = "grey";
+      } else {
+        cell.style.color = "white";
       }
     }
   }
@@ -66,4 +70,20 @@ function checkValidDirections() {
       // console.log("move " + moveDirections[i] + " was invalid");
     }
   }
+}
+
+function toggleInputAndCrushing() {
+  let prev;
+  moveButtons.forEach((item) => {
+    prev = item.disabled;
+    console.log("prev set to " + prev);
+    item.disabled = !prev;
+  });
+  moveInput = document.getElementById("moveInput").disabled = !prev;
+  $("#crushBtn").attr("disabled", prev);
+}
+
+// Need to show removed items before new ones are added so we need a delay
+function delay(milisecs) {
+  return new Promise((r) => setTimeout(r, milisecs));
 }
