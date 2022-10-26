@@ -1,6 +1,5 @@
 // Creates the initial table of square candies
 function createGuiBoard() {
-  let gameTable = document.getElementById("gameTable");
   for (let i = 0; i < DEFAULT_BOARD_SIZE; i++) {
     var newRow = gameTable.insertRow(i);
     for (let j = 0; j < DEFAULT_BOARD_SIZE; j++) {
@@ -26,7 +25,7 @@ function createGuiBoard() {
 
 // Updates the table's appearance in case of new game
 function refreshGuiBoard() {
-  let gameTable = document.getElementById("gameTable");
+  //TODO: Check all places that call this and check if a full refresh is unnecessary
   for (let i = 0; i < gameTable.rows.length; i++) {
     for (let j = 0; j < gameTable.rows[i].cells.length; j++) {
       let cell = gameTable.rows[i].cells[j];
@@ -51,17 +50,18 @@ function refreshGuiBoard() {
 
 function checkValidDirections() {
   moveDirections = ["up", "left", "right", "down"];
-  moveInput = document.getElementById("moveInput").value;
-  // console.log("moveInput value was " + moveInput);
-  inputX = moveInput.slice(0, 1).toLowerCase().charCodeAt(0) - 97;
-  inputY = parseInt(moveInput.slice(1)) - 1;
+  moveInputVal = moveInput.value;
+  // console.log("moveInputVal value was " + moveInputVal);
+  inputX = moveInputVal.slice(0, 1).toLowerCase().charCodeAt(0) - 97;
+  inputY = parseInt(moveInputVal.slice(1)) - 1;
+  // FIXME: A1sdjhrgjhsdkhjdfjhsdf is valid due to how parseInt works. Look into alternative
   // console.log("row is " + inputX + " and column is " + inputY);
   candyInput = board.getCandyAt(inputY, inputX);
   // console.log("candy retrieved was: " + candyInput);
   for (let i = 0; i < moveButtons.length; i++) {
     if (
       candyInput != null &&
-      rules.numberCandiesCrushedByMove(candyInput, moveDirections[i]) > 0
+      rules.isMoveTypeValid(candyInput, moveDirections[i])
     ) {
       moveButtons[i].disabled = false;
       // console.log("move " + moveDirections[i] + " was valid");
@@ -72,15 +72,23 @@ function checkValidDirections() {
   }
 }
 
-function toggleInputAndCrushing() {
-  let prev;
-  moveButtons.forEach((item) => {
-    prev = item.disabled;
-    console.log("prev set to " + prev);
-    item.disabled = !prev;
-  });
-  moveInput = document.getElementById("moveInput").disabled = !prev;
-  $("#crushBtn").attr("disabled", prev);
+//For toggling ability to press crush button on and off
+function toggleCrush() {
+  crushBtn = document.getElementById("crushBtn");
+  prev = crushBtn.disabled;
+  console.log("prev returned: " + prev);
+  crushBtn.disabled = !prev;
+}
+
+function disableInput() {
+  moveButtons.forEach((item) => (item.disabled = true));
+  moveInput.disabled = true;
+}
+
+function enableAndFocusInput() {
+  moveInput.disabled = false;
+  moveInput.focus();
+  moveInput.value = "";
 }
 
 // Need to show removed items before new ones are added so we need a delay
