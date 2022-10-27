@@ -103,6 +103,10 @@ Collaborators: None.
         console.log("add event triggered");
         cell = gameTable.rows[info.toRow].cells[info.toCol];
         cell.style.background = info.candy.color;
+        if (info.candy.color == "yellow") cell.style.color = "grey";
+        else {
+          cell.style.color = "white";
+        }
       });
 
       // move a candy on the board
@@ -131,9 +135,9 @@ Collaborators: None.
         }
         cell.style.background = candyColor;
         if (cell.style.background == "yellow") {
-          cell.style.color = "red";
+          cell.style.color = "grey";
         } else {
-          cell.style.color = "blue";
+          cell.style.color = "white";
         }
       });
 
@@ -149,6 +153,7 @@ Collaborators: None.
         if (gameTable == null) console.log("gametable is null...");
         let cell = gameTable.rows[info.fromRow].cells[info.fromCol];
         cell.style.background = "#00000036";
+        cell.style.color = "black";
 
         await delay(500); //FIXME: Should disable crush button during this wait!
         rules.moveCandiesDown();
