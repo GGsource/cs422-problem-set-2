@@ -3,6 +3,9 @@ CandyCrush
 Your Name: Geo Gonzalez
 Collaborators: None.
 -->
+<!-- TODO: comment code better -->
+<!-- TODO: Remove debugging statements -->
+<!-- TODO: comment out debugging visuals -->
 <!DOCTYPE html>
 <html lang="en">
   <!--
@@ -84,7 +87,7 @@ Collaborators: None.
         gameTable = document.getElementById("gameTable");
         createGuiBoard();
         rules.prepareNewGame();
-        refreshGuiBoard();
+        fillNewGuiBoard();
         // Values needed for other functions
         moveButtons = [
           document.getElementById("moveUp"),
@@ -93,6 +96,7 @@ Collaborators: None.
           document.getElementById("moveDown"),
         ];
         moveInput = document.getElementById("moveInput");
+        crushBtn = document.getElementById("crushBtn");
       });
 
       /* Event Handlers */
@@ -150,17 +154,16 @@ Collaborators: None.
             info.fromCol +
             ")"
         );
-        if (gameTable == null) console.log("gametable is null...");
         let cell = gameTable.rows[info.fromRow].cells[info.fromCol];
         cell.style.background = "#00000036";
         cell.style.color = "black";
-
-        await delay(500); //FIXME: Should disable crush button during this wait!
+        disableCrush(true);
+        await delay(500);
         rules.moveCandiesDown();
-
-        // Now that we've crushed once, check if there are more crushes needed, if not then disable crushing
-        if (rules.getCandyCrushes().length <= 0) {
-          disableCrush(true);
+        // Now that we've crushed once, check if there are more crushes needed, if so then enable crush btn
+        if (rules.getCandyCrushes().length > 0) {
+          disableCrush(false);
+        } else {
           //DONE: Once returned to inputting, should clear field and put cursor there
           enableAndFocusInput();
         }
@@ -168,15 +171,18 @@ Collaborators: None.
 
       // move a candy on the board
       $(board).on("scoreUpdate", function (e, info) {
-        // TODO: Your code here. To be implemented in pset 2.
-        console.log("scoreUpdate even triggered but not yet implemented 😔");
+        // DONE: Updates score on screen
+        console.log("scoreUpdate even triggered");
+        $("#scoreLabel").text("Score: " + info.score);
       });
 
       // DONE: Behavior for new game button
       $(document).on("click", "#newGameButton", function (evt) {
         board.clear();
         rules.prepareNewGame();
-        refreshGuiBoard();
+        fillNewGuiBoard();
+        disableInputButtons();
+        board.resetScore();
         // console.log("new game prepared");
       });
 
@@ -213,7 +219,7 @@ Collaborators: None.
           }
           board.flipCandies(candyInput, destCandy);
           //Now that the candies have been flipped, we don't want the user to move anything else or enter any new location until they crush the existing candies
-          disableInput();
+          disableInputButtons();
           disableCrush(false);
         }
       );
@@ -222,33 +228,42 @@ Collaborators: None.
       $(document).on("keyup", "#moveInput", function () {
         checkValidDirections();
       });
+
+      // Optional Implementations: shortcuts
+      $(document).on("keyup", function (event) {
+        if (document.activeElement == moveInput) return; //Ignore shortcuts if typing
+        if (event.key == "n") $("#newGameButton").click();
+        else if (event.key == " " && crushBtn.disabled == false)
+          crushBtn.click();
+      });
     </script>
   </head>
 
   <body>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" id="mainRow">
+        <!-- Column Left -->
         <div class="col-md-3" id="firstColumn" align="center">
           <div id="title">Candy<br />Crush</div>
           <button id="newGameButton" type="button" class="btn btn-info">
             New Game
           </button>
         </div>
-
+        <!-- Column Center -->
         <div class="col-md-6" id="mainColumn" align="center">
           <table id="gameTable"></table>
         </div>
-
+        <!-- Column Right -->
         <div class="col-md-3" id="lastColumn" align="center">
           <!-- Move Label -->
-          <div class="row rightRow">
+          <div class="row">
             <div class="col-md" id="inputColumn" align="center">
               <label for="moveField">Move:</label>
               <input type="text" name="moveField" id="moveInput" />
             </div>
           </div>
           <!-- Top Row -->
-          <div class="row rightRow" id="upBtnRow">
+          <div class="row" id="upBtnRow">
             <!-- Top Left Column -->
             <div class="col-md btnColumn" align="center"></div>
             <!-- Top Center Column -->
@@ -266,7 +281,7 @@ Collaborators: None.
             <div class="col-md btnColumn" align="center"></div>
           </div>
           <!-- Center Row -->
-          <div class="row rightRow" id="horizontalBtnRow">
+          <div class="row" id="horizontalBtnRow">
             <!-- Center Left Column -->
             <div class="col-md btnColumn" align="center">
               <button
@@ -293,7 +308,7 @@ Collaborators: None.
             </div>
           </div>
           <!-- Bottom Row -->
-          <div class="row rightRow" id="downBtnRow">
+          <div class="row" id="downBtnRow">
             <!-- Bottom Left Column -->
             <div class="col-md btnColumn" align="center"></div>
             <!-- Bottom Center Column -->
@@ -318,6 +333,11 @@ Collaborators: None.
           >
             Crush Once
           </button>
+          <div class="row">
+            <div class="col-md" id="scoreColumn" align="center">
+              <label id="scoreLabel">Score: 0</label>
+            </div>
+          </div>
         </div>
       </div>
       <!-- class="row" -->

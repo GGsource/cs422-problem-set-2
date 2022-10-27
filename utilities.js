@@ -25,8 +25,7 @@ function createGuiBoard() {
 }
 
 // Updates the table's appearance in case of new game
-function refreshGuiBoard() {
-  //TODO: Check all places that call this and check if a full refresh is unnecessary
+function fillNewGuiBoard() {
   for (let i = 0; i < gameTable.rows.length; i++) {
     for (let j = 0; j < gameTable.rows[i].cells.length; j++) {
       let cell = gameTable.rows[i].cells[j];
@@ -50,11 +49,12 @@ function refreshGuiBoard() {
 function checkValidDirections() {
   moveDirections = ["up", "left", "right", "down"];
   moveInputVal = moveInput.value;
-  if (moveInputVal.length < 2) return;
   // console.log("moveInputVal value was " + moveInputVal);
-  inputX = moveInputVal.slice(0, 1).toLowerCase().charCodeAt(0) - 97;
-  inputY = parseInt(moveInputVal.slice(1)) - 1;
-  // FIXME: A1sdjhrgjhsdkhjdfjhsdf is valid due to how parseInt works. Look into alternative
+  inputX = moveInputVal.slice(0, 1).trim().toLowerCase().charCodeAt(0) - 97;
+  let inputY;
+  if (moveInputVal.slice(1).trim().length == 1) {
+    inputY = parseInt(moveInputVal.slice(1)) - 1;
+  }
   // console.log("row is " + inputX + " and column is " + inputY);
   candyInput = board.getCandyAt(inputY, inputX);
   // console.log("candy retrieved was: " + candyInput);
@@ -74,11 +74,10 @@ function checkValidDirections() {
 
 //For toggling ability to press crush button on and off
 function disableCrush(state) {
-  crushBtn = document.getElementById("crushBtn");
   crushBtn.disabled = state;
 }
 
-function disableInput() {
+function disableInputButtons() {
   moveButtons.forEach((item) => (item.disabled = true));
   moveInput.disabled = true;
 }
