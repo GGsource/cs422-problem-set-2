@@ -9,16 +9,17 @@ function createGuiBoard() {
       //Name it
       newCell.innerHTML = `${(j + 10).toString(36)}${i + 1}`;
       // Get the piece's color here
-      let candyColor = board.getCandyAt(i, j).color;
-      if (candyColor != null) {
-        newCell.style.background = candyColor;
-        if (candyColor == "yellow") {
-          //Yellow buttons need darker text
-          newCell.style.color = "grey";
-        } else {
-          newCell.style.color = "white";
-        }
-      }
+      // let candyColor = board.getCandyAt(i, j).color;
+      // if (candyColor != null) {
+      //   newCell.style.background = candyColor;
+      //   if (candyColor == "yellow") {
+      //     //Yellow buttons need darker text
+      //     newCell.style.color = "grey";
+      //   } else {
+      //     newCell.style.color = "white";
+      //   }
+      // }
+      newCell.style.background = "#00000036";
     }
   }
 }
@@ -34,8 +35,6 @@ function refreshGuiBoard() {
       let candyColor;
       if (candy != null) {
         candyColor = candy.color;
-      } else {
-        candyColor = "#00000036";
       }
       cell.style.background = candyColor;
       if (candyColor == "yellow") {
@@ -51,6 +50,7 @@ function refreshGuiBoard() {
 function checkValidDirections() {
   moveDirections = ["up", "left", "right", "down"];
   moveInputVal = moveInput.value;
+  if (moveInputVal.length < 2) return;
   // console.log("moveInputVal value was " + moveInputVal);
   inputX = moveInputVal.slice(0, 1).toLowerCase().charCodeAt(0) - 97;
   inputY = parseInt(moveInputVal.slice(1)) - 1;
@@ -73,11 +73,9 @@ function checkValidDirections() {
 }
 
 //For toggling ability to press crush button on and off
-function toggleCrush() {
+function disableCrush(state) {
   crushBtn = document.getElementById("crushBtn");
-  prev = crushBtn.disabled;
-  console.log("prev returned: " + prev);
-  crushBtn.disabled = !prev;
+  crushBtn.disabled = state;
 }
 
 function disableInput() {

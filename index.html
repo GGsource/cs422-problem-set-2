@@ -81,10 +81,11 @@ Collaborators: None.
       // Final initialization entry point: the Javascript code inside this block
       // runs at the end of start-up when the page has finished loading.
       $(document).ready(function () {
-        rules.prepareNewGame();
-        createGuiBoard(board);
-        // Values needed for other functions
         gameTable = document.getElementById("gameTable");
+        createGuiBoard();
+        rules.prepareNewGame();
+        refreshGuiBoard();
+        // Values needed for other functions
         moveButtons = [
           document.getElementById("moveUp"),
           document.getElementById("moveLeft"),
@@ -99,22 +100,65 @@ Collaborators: None.
 
       // add a candy to the board
       $(board).on("add", function (e, info) {
-        // TESTME: Not sure what functionality is needed here
         console.log("add event triggered");
-        // refreshGuiBoard();
+        cell = gameTable.rows[info.toRow].cells[info.toCol];
+        cell.style.background = info.candy.color;
       });
 
       // move a candy on the board
       $(board).on("move", function (e, info) {
-        // TESTME: Seems to work.
-        console.log("move event triggered");
-        refreshGuiBoard();
+        // DONE: swaps color of pieces that swapped
+        console.log(
+          "move event triggered from (" +
+            info.toRow +
+            ", " +
+            info.toCol +
+            ") to (" +
+            info.fromRow +
+            ", " +
+            info.fromCol +
+            ")"
+        );
+        cell = gameTable.rows[info.toRow].cells[info.toCol];
+        destCell = gameTable.rows[info.fromRow].cells[info.fromCol];
+        candy = board.getCandyAt(info.toRow, info.toCol);
+        destCandy = board.getCandyAt(info.fromRow, info.fromCol);
+        let candyColor;
+        if (candy != null) {
+          candyColor = candy.color;
+        } else {
+          candyColor = "#00000036";
+        }
+        cell.style.background = candyColor;
+        if (cell.style.background == "yellow") {
+          cell.style.color = "red";
+        } else {
+          cell.style.color = "blue";
+        }
       });
 
       // remove a candy from the board
-      $(board).on("remove", function (e, info) {
-        // TODO: Your code here.
-        console.log("remove event triggered but not yet implemented 😔");
+      $(board).on("remove", async function (e, info) {
+        console.log(
+          "remove event triggered from (" +
+            info.fromRow +
+            ", " +
+            info.fromCol +
+            ")"
+        );
+        if (gameTable == null) console.log("gametable is null...");
+        let cell = gameTable.rows[info.fromRow].cells[info.fromCol];
+        cell.style.background = "#00000036";
+
+        await delay(500); //FIXME: Should disable crush button during this wait!
+        rules.moveCandiesDown();
+
+        // Now that we've crushed once, check if there are more crushes needed, if not then disable crushing
+        if (rules.getCandyCrushes().length <= 0) {
+          disableCrush(true);
+          //DONE: Once returned to inputting, should clear field and put cursor there
+          enableAndFocusInput();
+        }
       });
 
       // move a candy on the board
@@ -125,7 +169,6 @@ Collaborators: None.
 
       // DONE: Behavior for new game button
       $(document).on("click", "#newGameButton", function (evt) {
-        // FIXME: The new board is NOT valid, it contains crushes upon creation.
         board.clear();
         rules.prepareNewGame();
         refreshGuiBoard();
@@ -139,16 +182,6 @@ Collaborators: None.
         console.log(
           "Successfully crushed with " + toDestroy.length + " crushes"
         );
-        refreshGuiBoard();
-        await delay(1000); //FIXME: Should disable crush button during this wait!
-        rules.moveCandiesDown();
-        refreshGuiBoard();
-        // Now that we've crushed once, check if there are more crushes needed, if not then disable crushing
-        if (rules.getCandyCrushes().length <= 0) {
-          toggleCrush();
-          //TODO: Once returned to inputting, should clear field and put cursor there
-          enableAndFocusInput();
-        }
       });
 
       // DONE: Whenever an arrow button is pressed it checks which one was pressed and moves accordingly
@@ -172,13 +205,11 @@ Collaborators: None.
             case "↓":
               destCandy = board.getCandyInDirection(candyInput, "down");
               break;
-            default:
-              console.log("uh oh. Received " + pressedBtnText);
           }
           board.flipCandies(candyInput, destCandy);
           //Now that the candies have been flipped, we don't want the user to move anything else or enter any new location until they crush the existing candies
           disableInput();
-          toggleCrush();
+          disableCrush(false);
         }
       );
 
