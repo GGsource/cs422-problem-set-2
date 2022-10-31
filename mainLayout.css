@@ -8,14 +8,15 @@
 
 #mainRow {
   /*Row containing all 3 columns*/
-  margin-top: 100px;
   align-items: center;
 }
 .rightRow {
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .colCenter {
+  /* Space between left & right arrow btns */
   width: 40px;
 }
 #horizontalBtnRow {
@@ -47,11 +48,38 @@ td {
   border-color: darkgrey;
 }
 
+#firstColumn {
+  padding: 30px 30px 30px 0px;
+}
+#newGameButton {
+  background-color: red;
+  border-color: darkred;
+  height: 80px;
+  width: 240px;
+  font-size: 30px;
+}
+#newGameButton:focus {
+  background-color: darkred;
+}
 #mainColumn {
   padding: 10px;
 }
-/* DEBUGGING: shows bounding boxes of each piece
-.col-md-6 {
+#lastColumn {
+  padding: 30px 30px 0px 30px;
+}
+
+.borderRow {
+  height: 30px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #00000000,
+    #00000000 10px,
+    #ff00005a 10px,
+    red 40px
+  );
+}
+/* DEBUGGING: shows bounding boxes of each piece */
+/* .col-md-6 {
   background-image: repeating-linear-gradient(
     45deg,
     #00000000,

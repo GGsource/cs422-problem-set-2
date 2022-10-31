@@ -19,7 +19,7 @@ function createGuiBoard() {
       //     newCell.style.color = "white";
       //   }
       // }
-      newCell.style.background = "#00000036";
+      newCell.style.background = "#00000085";
     }
   }
 }

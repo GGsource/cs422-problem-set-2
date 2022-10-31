@@ -3,9 +3,6 @@ CandyCrush
 Your Name: Geo Gonzalez
 Collaborators: None.
 -->
-<!-- TODO: comment code better -->
-<!-- TODO: Remove debugging statements -->
-<!-- TODO: comment out debugging visuals -->
 <!DOCTYPE html>
 <html lang="en">
   <!--
@@ -104,7 +101,7 @@ Collaborators: None.
 
       // add a candy to the board
       $(board).on("add", function (e, info) {
-        console.log("add event triggered");
+        // console.log("add event triggered");
         cell = gameTable.rows[info.toRow].cells[info.toCol];
         cell.style.background = info.candy.color;
         if (info.candy.color == "yellow") cell.style.color = "grey";
@@ -116,17 +113,17 @@ Collaborators: None.
       // move a candy on the board
       $(board).on("move", function (e, info) {
         // DONE: swaps color of pieces that swapped
-        console.log(
-          "move event triggered from (" +
-            info.toRow +
-            ", " +
-            info.toCol +
-            ") to (" +
-            info.fromRow +
-            ", " +
-            info.fromCol +
-            ")"
-        );
+        // console.log(
+        //   "move event triggered from (" +
+        //     info.toRow +
+        //     ", " +
+        //     info.toCol +
+        //     ") to (" +
+        //     info.fromRow +
+        //     ", " +
+        //     info.fromCol +
+        //     ")"
+        // );
         cell = gameTable.rows[info.toRow].cells[info.toCol];
         destCell = gameTable.rows[info.fromRow].cells[info.fromCol];
         candy = board.getCandyAt(info.toRow, info.toCol);
@@ -135,7 +132,7 @@ Collaborators: None.
         if (candy != null) {
           candyColor = candy.color;
         } else {
-          candyColor = "#00000036";
+          candyColor = "#00000085";
         }
         cell.style.background = candyColor;
         if (cell.style.background == "yellow") {
@@ -147,15 +144,15 @@ Collaborators: None.
 
       // remove a candy from the board
       $(board).on("remove", async function (e, info) {
-        console.log(
-          "remove event triggered from (" +
-            info.fromRow +
-            ", " +
-            info.fromCol +
-            ")"
-        );
+        // console.log(
+        //   "remove event triggered from (" +
+        //     info.fromRow +
+        //     ", " +
+        //     info.fromCol +
+        //     ")"
+        // );
         let cell = gameTable.rows[info.fromRow].cells[info.fromCol];
-        cell.style.background = "#00000036";
+        cell.style.background = "#00000085";
         cell.style.color = "black";
         disableCrush(true);
         await delay(500);
@@ -172,7 +169,7 @@ Collaborators: None.
       // move a candy on the board
       $(board).on("scoreUpdate", function (e, info) {
         // DONE: Updates score on screen
-        console.log("scoreUpdate even triggered");
+        // console.log("scoreUpdate even triggered");
         $("#scoreLabel").text("Score: " + info.score);
       });
 
@@ -190,9 +187,9 @@ Collaborators: None.
       $(document).on("click", "#crushBtn", async function () {
         toDestroy = rules.getCandyCrushes();
         rules.removeCrushes(toDestroy);
-        console.log(
-          "Successfully crushed with " + toDestroy.length + " crushes"
-        );
+        // console.log(
+        //   "Successfully crushed with " + toDestroy.length + " crushes"
+        // );
       });
 
       // DONE: Whenever an arrow button is pressed it checks which one was pressed and moves accordingly
@@ -201,7 +198,7 @@ Collaborators: None.
         "#moveUp, #moveLeft, #moveRight, #moveDown",
         function () {
           let pressedBtnText = $(this).text().trim();
-          console.log(pressedBtnText + " was pressed");
+          // console.log(pressedBtnText + " was pressed");
           let destCandy;
           switch (pressedBtnText) {
             case "↑":
@@ -241,6 +238,7 @@ Collaborators: None.
 
   <body>
     <div class="container-fluid">
+      <div class="row borderRow" id="topBorderRow"></div>
       <div class="row" id="mainRow">
         <!-- Column Left -->
         <div class="col-md-3" id="firstColumn" align="center">
@@ -336,7 +334,7 @@ Collaborators: None.
           </div>
         </div>
       </div>
-      <!-- class="row" -->
+      <div class="row borderRow" id="btmBorderRow"></div>
     </div>
     <!-- class="container" -->
   </body>
