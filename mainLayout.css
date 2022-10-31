@@ -6,6 +6,22 @@
   src: url("/resources/fonts/CandyShopPersonalUse-O7ZO.ttf");
 }
 
+#mainRow {
+  /*Row containing all 3 columns*/
+  margin-top: 100px;
+  align-items: center;
+}
+.rightRow {
+  padding: 20px;
+}
+
+.colCenter {
+  width: 40px;
+}
+#horizontalBtnRow {
+  flex-wrap: nowrap;
+}
+
 #title {
   color: red;
   font-size: 6vw;
@@ -31,8 +47,11 @@ td {
   border-color: darkgrey;
 }
 
-/*DEBUGGING: shows bounding boxes of each piece*/
 #mainColumn {
+  padding: 10px;
+}
+/* DEBUGGING: shows bounding boxes of each piece
+.col-md-6 {
   background-image: repeating-linear-gradient(
     45deg,
     #00000000,
@@ -49,4 +68,4 @@ div {
     #98468226 5px,
     #98468a24 10px
   );
-}
+} */

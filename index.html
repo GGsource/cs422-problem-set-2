@@ -256,7 +256,7 @@ Collaborators: None.
         <!-- Column Right -->
         <div class="col-md-3" id="lastColumn" align="center">
           <!-- Move Label -->
-          <div class="row">
+          <div class="row rightRow" id="inputRow">
             <div class="col-md" id="inputColumn" align="center">
               <label for="moveField">Move:</label>
               <input type="text" name="moveField" id="moveInput" />
@@ -264,10 +264,8 @@ Collaborators: None.
           </div>
           <!-- Top Row -->
           <div class="row" id="upBtnRow">
-            <!-- Top Left Column -->
-            <div class="col-md btnColumn" align="center"></div>
             <!-- Top Center Column -->
-            <div class="col-md btnColumn" align="center">
+            <div class="col-md" align="center">
               <button
                 type="button"
                 class="btn btn-success"
@@ -277,40 +275,36 @@ Collaborators: None.
                 ↑
               </button>
             </div>
-            <!-- Top Right Column -->
-            <div class="col-md btnColumn" align="center"></div>
           </div>
           <!-- Center Row -->
           <div class="row" id="horizontalBtnRow">
-            <!-- Center Left Column -->
-            <div class="col-md btnColumn" align="center">
-              <button
-                type="button"
-                class="btn btn-success"
-                id="moveLeft"
-                disabled="disabled"
-              >
-                ←
-              </button>
-            </div>
-            <!-- Center Center Column -->
-            <div class="col-md btnColumn" align="center"></div>
-            <!-- Center Right Column -->
-            <div class="col-md btnColumn" align="center">
-              <button
-                type="button"
-                class="btn btn-success"
-                id="moveRight"
-                disabled="disabled"
-              >
-                →
-              </button>
-            </div>
+            <!-- Center Column 1 -->
+            <div class="col" align="center"></div>
+            <!-- Center Column 2 -->
+            <button
+              type="button"
+              class="btn horizontalBtn btn-success"
+              id="moveLeft"
+              disabled="disabled"
+            >
+              ←
+            </button>
+            <!-- Center Column 3 -->
+            <div class="colCenter"></div>
+            <!-- Center Column 4 -->
+            <button
+              type="button"
+              class="btn horizontalBtn btn-success"
+              id="moveRight"
+              disabled="disabled"
+            >
+              →
+            </button>
+            <!-- Center Column 5 -->
+            <div class="col" align="center"></div>
           </div>
           <!-- Bottom Row -->
           <div class="row" id="downBtnRow">
-            <!-- Bottom Left Column -->
-            <div class="col-md btnColumn" align="center"></div>
             <!-- Bottom Center Column -->
             <div class="col-md" align="center">
               <button
@@ -322,18 +316,20 @@ Collaborators: None.
                 ↓
               </button>
             </div>
-            <!-- Bottom Right Column -->
-            <div class="col-md btnColumn" align="center"></div>
           </div>
-          <button
-            type="button"
-            class="btn btn-info"
-            id="crushBtn"
-            disabled="disabled"
-          >
-            Crush Once
-          </button>
-          <div class="row">
+          <div class="row rightRow">
+            <div class="col-md crushBtnColumn" align="center">
+              <button
+                type="button"
+                class="btn btn-info"
+                id="crushBtn"
+                disabled="disabled"
+              >
+                Crush Once
+              </button>
+            </div>
+          </div>
+          <div class="row rightRow">
             <div class="col-md" id="scoreColumn" align="center">
               <label id="scoreLabel">Score: 0</label>
             </div>
