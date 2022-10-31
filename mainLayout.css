@@ -3,7 +3,7 @@
  */
 @font-face {
   font-family: "CandyShop";
-  src: url("/resources/fonts/CandyShopPersonalUse-O7ZO.ttf");
+  src: url("./resources/fonts/CandyShopPersonalUse-O7ZO.ttf");
 }
 
 #mainRow {
